@@ -1,6 +1,7 @@
  <template>
   <v-app>
     <Header></Header>
+    <SideBar/>
     <v-main>
       <slot></slot>
     </v-main>
@@ -11,10 +12,12 @@
  <script>
 import Header from "./Header";
 import Footer from "./Footer";
+import SideBar from './SideBar'
 export default {
   components: {
     Header,
     Footer,
+    SideBar
   },
 };
 </script>

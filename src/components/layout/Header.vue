@@ -1,6 +1,6 @@
  <template>
   <v-app-bar app absolute color="primary" dark>
-    <v-app-bar-nav-icon color="white"></v-app-bar-nav-icon>
+    <v-app-bar-nav-icon @click="activeSideBar()" color="white"></v-app-bar-nav-icon>
 
     <v-toolbar-title>Page title</v-toolbar-title>
 
@@ -12,7 +12,8 @@
           <v-btn text dark v-on="on">
             <v-avatar class="mr-2">
               <img src="@/assets/images/d1.jpg" alt="alt" />
-            </v-avatar>Name User
+            </v-avatar>
+            {{ auth.displayName }}
           </v-btn>
         </template>
 
@@ -29,7 +30,7 @@
             </v-list-item>
             <!-- @click="logout()" -->
             <v-list-item>
-              <v-btn text icon color="red">
+              <v-btn text icon color="red" @click="logOff()">
                 <v-icon>mdi-logout-variant</v-icon>Sair
               </v-btn>
             </v-list-item>
@@ -41,7 +42,22 @@
 </template>
  
  <script>
-export default {};
+import firebase from "firebase";
+export default {
+  computed: {
+    auth() {
+      return this.$store.getters.getAuth;
+    },
+  },
+  methods: {
+    activeSideBar() {
+      this.$store.commit("activeSideBar");
+    },
+    logOff() {
+      firebase.auth().signOut().then(()=>console.log('logoff'));
+    },
+  },
+};
 </script>
  
  <style>

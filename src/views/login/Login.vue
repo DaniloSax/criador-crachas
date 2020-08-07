@@ -5,25 +5,29 @@
       <v-text-field label="Email" type="text" v-model="email"></v-text-field>
       <v-text-field label="Senha" type="password" v-model="password"></v-text-field>
 
-      <v-btn color="success" @click.stop="createUser()">Logar</v-btn>
+      <v-btn color="success" @click.stop="login()">Logar</v-btn>
     </v-card-text>
   </v-card>
 </template>
     
 <script>
-import firebase from 'firebase'
 export default {
   data() {
     return {
-      email: "",
-      password: "",
+      email: "danilovsdanilo@gmail.com",
+      password: "danilo123",
     };
   },
-  methods:{
-      createUser(){
-          firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
-      }
-  }
+  methods: {
+    login() {
+      this.$store.dispatch("login", {
+        email: this.email,
+        password: this.password,
+      }).then(()=>{
+          this.$router.push('/home')
+      });
+    },
+  },
 };
 </script>
     
