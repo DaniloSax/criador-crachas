@@ -2,7 +2,7 @@ import firebase from 'firebase'
 
 export default {
     state: {
-        auth: {},
+        auth: null,
     },
     mutations: {
         setAuth: (state, auth) => state.auth = auth,
@@ -13,6 +13,7 @@ export default {
         loadUserAuth({ commit }) {
             firebase.auth().onAuthStateChanged(user => {
                 if (user) {
+                    // commit('setAuth', user)
                     // User is signed in.
                     commit('setAuth', {
                         displayName: user.displayName,
