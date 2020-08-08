@@ -11,23 +11,43 @@
     </v-list-item>
 
     <v-divider></v-divider>
+    <v-list dense>
 
-    <!-- <v-list dense>
-      <v-list-item v-for="item in items" :key="item.title" link>
-        <v-list-item-icon>
-          <v-icon>{{ item.icon }}</v-icon>
-        </v-list-item-icon>
+      <router-link class="text-decoration-none" to="/">
+        <v-list-item class="text-decoration-none" link>
+          <v-list-item-icon>
+            <v-icon>mdi-home-city-outline</v-icon>
+          </v-list-item-icon>
 
-        <v-list-item-content>
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-    </v-list> -->
+          <v-list-item-content>
+            <v-list-item-title>Início</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </router-link>
+
+      <router-link class="text-decoration-none" to="/users">
+        <v-list-item class="text-decoration-none" link>
+          <v-list-item-icon>
+            <v-icon>mdi-account-group</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title>Usuários</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </router-link>
+
+    </v-list>
   </v-navigation-drawer>
 </template>
  
  <script>
 export default {
+  data() {
+    return {
+      items: [{ title: "Usuários", path: "/users", icon: "mdi-account-group" }],
+    };
+  },
   computed: {
     drawer: {
       get() {

@@ -1,44 +1,42 @@
 import firebase from 'firebase'
+import router from '@/router/index'
+import localforage from 'localforage'
 
 export default {
     state: {
         auth: null,
     },
     mutations: {
-        setAuth: (state, auth) => state.auth = auth,
+        setDataAuth: (state, auth) => {
+            console.log('logado sucesso', auth)
+            localStorage.setItem('access_token', auth.refreshToken)
+            localforage.setItem('auth', auth)
+
+            state.auth = auth
+        },
 
         toNothing: () => console.log('mutation inutil'),
     },
     actions: {
-        loadUserAuth({ commit }) {
-            firebase.auth().onAuthStateChanged(user => {
-                if (user) {
-                    // commit('setAuth', user)
-                    // User is signed in.
-                    commit('setAuth', {
-                        displayName: user.displayName,
-                        email: user.email,
-                        emailVerified: user.emailVerified,
-                        photoURL: user.photoURL,
-                        isAnonymous: user.isAnonymous,
-                        uid: user.uid,
-                        providerData: user.providerData,
-                    });
-                }
+        login({ commit }, credentials) {
+            new Promise((resolve, reject) => {
+                firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password).then((data) => {
+                    resolve(data)
+
+                    commit('setDataAuth', data.user);
+                    router.push('/')
+
+                }).catch(function(error) {
+                    reject(error)
+                    console.log(error.code)
+                    console.log(error.message)
+                });
             })
         },
 
-        login({ commit, dispatch }, credentials) {
-            firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password).then(() => {
-                console.log('logado sucesso')
-                commit('toNothing');
-                dispatch('loadUserAuth')
-            }).catch(function(error) {
-                // Handle Errors here.
-                console.log(error.code)
-                console.log(error.message)
-                    // ...
-            });
+        logOff({ commit }) {
+            console.log('action loggOff')
+            commit('setDataAuth', null)
         },
 
         storeUser() {
@@ -48,6 +46,6 @@ export default {
         deleteUser() {},
     },
     getters: {
-        getAuth: (state) => state.auth
+        auth: (state) => state.auth
     },
 }

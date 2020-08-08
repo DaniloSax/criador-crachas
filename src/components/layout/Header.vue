@@ -13,7 +13,7 @@
             <v-avatar class="mr-2">
               <img src="@/assets/images/d1.jpg" alt="alt" />
             </v-avatar>
-            {{ auth.displayName }}
+            {{ auth.email }}
           </v-btn>
         </template>
 
@@ -43,18 +43,29 @@
  
  <script>
 import firebase from "firebase";
+
 export default {
-  computed: {
-    auth() {
-      return this.$store.getters.getAuth;
-    },
+  created() {
+    this.auth = firebase.auth().currentUser;
   },
+  data() {
+    return {
+      auth: {},
+    };
+  },
+
   methods: {
     activeSideBar() {
       this.$store.commit("activeSideBar");
     },
     logOff() {
-      firebase.auth().signOut().then(()=>console.log('logoff'));
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          this.$destroy(this.auth);
+          this.$router.replace("/login");
+        });
     },
   },
 };

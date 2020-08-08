@@ -1,7 +1,7 @@
  <template>
   <v-app>
     <Header></Header>
-    <SideBar/>
+    <SideBar />
     <v-main>
       <slot></slot>
     </v-main>
@@ -12,15 +12,20 @@
  <script>
 import Header from "./Header";
 import Footer from "./Footer";
-import SideBar from './SideBar'
+import SideBar from "./SideBar";
 export default {
   components: {
     Header,
     Footer,
-    SideBar
+    SideBar,
   },
 };
 </script>
  
  <style>
+.color-theme {
+  background: #00b4db;
+  background: -webkit-linear-gradient(to bottom, #0083b0, #00b4db);
+  background: linear-gradient(to bottom, #0083b0, #00b4db);
+}
 </style>
