@@ -19,8 +19,16 @@
 
 <script>
 import LayoutDefault from "./components/layout/LayoutDefault";
+import firebase from "firebase";
 
 export default {
+  created() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        window.uid = user.uid;
+      } else window.uid = null;
+    });
+  },
   name: "App",
   components: {
     LayoutDefault,

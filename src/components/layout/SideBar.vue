@@ -25,6 +25,18 @@
         </v-list-item>
       </router-link>
 
+      <router-link class="text-decoration-none" to="/cadastros">
+        <v-list-item class="text-decoration-none" link>
+          <v-list-item-icon>
+            <v-icon>mdi-home-city-outline</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title>Cadastros</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </router-link>
+
       <router-link class="text-decoration-none" to="/users">
         <v-list-item class="text-decoration-none" link>
           <v-list-item-icon>

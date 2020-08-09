@@ -1,24 +1,33 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import firebase from 'firebase'
+// import firebase from 'firebase'
 
 import Home from '../views/Home.vue'
 import Login from '../views/login/Login'
 import UsersIndex from '../views/users/Users'
 import UsersCreate from '../views/users/UserCreate'
+import Cadastros from '../views/cadastro/Cadastros'
 
 Vue.use(VueRouter)
 
-// { path: '/', redirect: '/home' },
 const routes = [{
         path: '/login',
         name: 'login',
         component: Login,
     },
     {
-        path: '/',
+        path: '/home',
         name: 'Home',
         component: Home,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    { path: '/', redirect: '/home' },
+    {
+        path: '/cadastros',
+        name: 'cadastros',
+        component: Cadastros,
         meta: {
             requiresAuth: true,
         },
@@ -39,6 +48,7 @@ const routes = [{
             requiresAuth: true,
         },
     },
+
 ]
 
 const router = new VueRouter({
@@ -49,23 +59,29 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
     const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-    const currentUser = firebase.auth().currentUser
-        // console.log('currentUser in route', currentUser)
+    const currentUser = window.uid ? window.uid : null
 
-    if (requiresAuth && !currentUser) next({ path: '/login', query: { redirect: to.fullPath } })
-    else if (requiresAuth && currentUser == null) next('/login')
-        // else if (!requiresAuth && !currentUser) next()
-    else next()
-        // if (requiresAuth) {
-        //     firebase.auth().onAuthStateChanged((user) => {
-        //         console.log(user)
-        //         if (!user) {
-        //             next('/login')
-        //         } else {
-        //             next()
-        //         }
-        //     })
-        // }
+    if (to.name !== 'login' && !currentUser) {
+        next('/login')
+    } else {
+        next()
+    }
+
+    // console.log(requiresAuth)
+    // if (requiresAuth && to.path !== '/login') {
+    if (requiresAuth) {
+
+        if (currentUser && to.path === '/login') next('/home')
+
+        if (!currentUser) {
+            next('/login')
+        } else next()
+
+
+    } else next()
+
+
+
 
 });
 

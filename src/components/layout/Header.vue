@@ -46,7 +46,13 @@ import firebase from "firebase";
 
 export default {
   created() {
-    this.auth = firebase.auth().currentUser;
+    // this.auth = firebase.auth().currentUser;
+    firebase.auth().onAuthStateChanged( user => {
+      if (user){
+        this.auth = user
+      } else this.auth = null
+
+    })
   },
   data() {
     return {
@@ -64,6 +70,7 @@ export default {
         .signOut()
         .then(() => {
           this.$destroy(this.auth);
+          window.uid = null;
           this.$router.replace("/login");
         });
     },
