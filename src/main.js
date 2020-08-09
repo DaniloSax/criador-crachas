@@ -7,6 +7,8 @@ import vuetify from './plugins/vuetify';
 import firebase from 'firebase/app'
 import 'firebase/firebase-analytics'
 import 'firebase/firebase-auth'
+import 'firebase/firebase-database'
+import 'firebase/firebase-firestore'
 
 Vue.config.productionTip = false
 

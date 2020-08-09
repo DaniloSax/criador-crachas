@@ -5,6 +5,7 @@ import firebase from 'firebase'
 import Home from '../views/Home.vue'
 import Login from '../views/login/Login'
 import UsersIndex from '../views/users/Users'
+import UsersCreate from '../views/users/UserCreate'
 
 Vue.use(VueRouter)
 
@@ -26,6 +27,14 @@ const routes = [{
         path: '/users',
         name: 'users',
         component: UsersIndex,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: '/users/create',
+        name: 'usersCreate',
+        component: UsersCreate,
         meta: {
             requiresAuth: true,
         },

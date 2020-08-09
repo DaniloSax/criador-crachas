@@ -10,12 +10,15 @@
     loading="true"
     search="search"
   ></v-data-table> -->
+  <div>
+
   <h1>users index</h1>
+  <v-btn color="primary" to="/users/create">Add Usu[ario</v-btn>
+  </div>
 </template>
  
  <script>
 // import firebase from "firebase";
-import admin from 'firebase-admin'
 
 export default {
   created() {
@@ -28,23 +31,7 @@ export default {
   },
   methods: {
     listAllUsers() {
-      // List batch of users, 1000 at a time.
-      // admin
-      //   .auth()
-      //   .listUsers(1000, nextPageToken)
-      //   .then(function (listUsersResult) {
-      //     listUsersResult.users.forEach(function (userRecord) {
-      //       console.log("user", userRecord.toJSON());
-      //     });
-      //     if (listUsersResult.pageToken) {
-      //       // List next batch of users.
-      //       listAllUsers(listUsersResult.pageToken);
-      //     }
-      //   })
-      //   .catch(function (error) {
-      //     console.log("Error listing users:", error);
-      //   });
-      admin.auth().listUsers
+      console.log(`lista de usuarios`)
     },
   },
 };

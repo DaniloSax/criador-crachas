@@ -3,7 +3,9 @@
     <Header></Header>
     <SideBar />
     <v-main>
-      <slot></slot>
+      <v-container grid-list-xs>
+        <slot></slot>
+      </v-container>
     </v-main>
     <Footer />
   </v-app>

@@ -22,7 +22,6 @@ import LayoutDefault from "./components/layout/LayoutDefault";
 
 export default {
   name: "App",
- 
   components: {
     LayoutDefault,
   },
