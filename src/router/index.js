@@ -6,7 +6,8 @@ import Home from '../views/Home.vue'
 import Login from '../views/login/Login'
 import UsersIndex from '../views/users/Users'
 import UsersCreate from '../views/users/UserCreate'
-import Cadastros from '../views/cadastro/Cadastros'
+import Registers from '../views/registers/Registers'
+import RegisterCreate from '../views/registers/RegisterCreate'
 
 Vue.use(VueRouter)
 
@@ -25,12 +26,17 @@ const routes = [{
     },
     { path: '/', redirect: '/home' },
     {
-        path: '/cadastros',
-        name: 'cadastros',
-        component: Cadastros,
+        path: '/registers',
+        name: 'registers',
+        component: Registers,
         meta: {
             requiresAuth: true,
         },
+        children: [{
+            name: "registersCreate",
+            path: "/register/create",
+            component: RegisterCreate
+        }, ]
     },
     {
         path: '/users',
@@ -61,27 +67,17 @@ router.beforeEach((to, from, next) => {
     const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
     const currentUser = window.uid ? window.uid : null
 
-    if (to.name !== 'login' && !currentUser) {
+    if (to.name !== 'login' && !requiresAuth && !currentUser) {
         next('/login')
     } else {
-        next()
+        if (currentUser && to.name === 'login') next('/')
+        else next()
     }
 
-    // console.log(requiresAuth)
-    // if (requiresAuth && to.path !== '/login') {
+
     if (requiresAuth) {
-
-        if (currentUser && to.path === '/login') next('/home')
-
-        if (!currentUser) {
-            next('/login')
-        } else next()
-
-
-    } else next()
-
-
-
+        // tratar permissions
+    }
 
 });
 

@@ -1,0 +1,12 @@
+{
+    "cadastro": {
+        "cpf": '52',
+        "fullName": ,
+        "office": ,
+        "photo": ,
+        "print": {
+            "qtd": ,
+            "created_by": ,
+        }
+    },
+}

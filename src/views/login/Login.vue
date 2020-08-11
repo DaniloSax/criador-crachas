@@ -24,9 +24,6 @@
 import firebase from "firebase";
 
 export default {
-  // created() {
-  //   window.uid = firebase.auth().currentUser.uid;
-  // },
   data() {
     return {
       credentials: {
