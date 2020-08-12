@@ -2,6 +2,7 @@ import firebase from 'firebase/app'
 import 'firebase/firebase-analytics'
 import 'firebase/firebase-auth'
 import 'firebase/firebase-database'
+import 'firebase/firebase-storage'
 
 var firebaseConfig = {
     apiKey: "AIzaSyBo6PyMF9oOBuyxEPBTG1UviOpLuqo7CLQ",
@@ -16,13 +17,5 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-// firebase.getCurrentUser = () => {
-//     return new Promise((resolve, reject) => {
-//         const unsubscribe = firebase.auth().onAuthStateChanged(user => {
-//             unsubscribe();
-//             resolve(user);
-//         }, reject);
-//     })
-// };
 
 export default firebase;
