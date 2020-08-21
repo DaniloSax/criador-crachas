@@ -8,8 +8,9 @@ import UsersIndex from '../views/users/Users'
 import UsersCreate from '../views/users/UserCreate'
 import Registers from '../views/registers/Registers'
 import RegisterCreate from '../views/registers/RegisterCreate'
+import RegisterEdit from '../views/registers/RegisterEdit'
 
-import ShowBadge from '../views/registers/ShowBadge'
+import BadgePrint from '../views/registers/BadgePrint'
 
 Vue.use(VueRouter)
 
@@ -35,10 +36,17 @@ const routes = [{
             requiresAuth: true,
         },
         children: [{
-            name: "registersCreate",
-            path: "/register/create",
-            component: RegisterCreate
-        }, ]
+                name: "registersCreate",
+                path: "/registers/create",
+                component: RegisterCreate
+            },
+            {
+                name: "registersEdit",
+                path: "/registers/:id/edit",
+                component: RegisterEdit,
+                props: true,
+            },
+        ]
     },
     {
         path: '/users',
@@ -57,9 +65,9 @@ const routes = [{
         },
     },
     {
-        path: '/:id/badge/show',
-        name: 'showBadge',
-        component: ShowBadge,
+        path: '/:id/badge/print',
+        name: 'BadgePrint',
+        component: BadgePrint,
         props: true,
         meta: {
             requiresAuth: true,

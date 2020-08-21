@@ -28,16 +28,18 @@
               <v-btn icon color="primary" @click="editUser(item.key)">
                 <v-icon>mdi-pencil</v-icon>
               </v-btn>
+
               <v-btn icon color="red" @click="deleteUser(item.key, item.cpf)">
                 <v-icon>mdi-delete</v-icon>
               </v-btn>
+
               <PreViewCardDialog :register="item" />
 
               <v-btn
                 icon
                 color="cyan lighten-1"
                 target="_blanck"
-                :to="{name:'showBadge', params: {id: item.key}}"
+                :to="{name:'BadgePrint', params: {id: item.key}}"
               >
                 <v-icon>mdi-printer</v-icon>
               </v-btn>
@@ -98,6 +100,7 @@ export default {
 
     editUser(key) {
       console.log("editUser", key);
+      this.$router.push({ name: "registersEdit", params: { id: key } });
     },
     deleteUser(key, cpf) {
       firebase.database().ref(`registers/${key}`).remove();

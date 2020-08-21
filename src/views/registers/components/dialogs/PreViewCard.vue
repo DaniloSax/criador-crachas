@@ -13,14 +13,14 @@
       <v-card>
         <v-card-text>
           <v-container class="d-flex justify-center">
-            <Badge :register="register" :print="print" />
+            <Badge :register="register"  />
           </v-container>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
 
           <v-btn text color="red" @click="dialog = false">Cancelar</v-btn>
-          <v-btn text color="cyan" target="_blanck" :to="{name:'showBadge', params: {id: register.key}}" >Imprimir</v-btn>
+          <v-btn text color="cyan" target="_blanck" :to="{name:'BadgePrint', params: {id: register.key}}" >Imprimir</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -37,13 +37,11 @@ export default {
     return {
       dialog: false,
       image: null,
-      print: false,
     };
   },
   components: {
     Badge,
   },
-  methods: {},
 };
 </script>
  
