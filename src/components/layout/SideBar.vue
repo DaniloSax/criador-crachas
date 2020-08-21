@@ -27,7 +27,7 @@
       <router-link class="text-decoration-none" :to="{name:'registers'}">
         <v-list-item class="text-decoration-none" link>
           <v-list-item-icon>
-            <v-icon>mdi-home-city-outline</v-icon>
+            <v-icon>mdi-badge-account-horizontal-outline</v-icon>
           </v-list-item-icon>
 
           <v-list-item-content>

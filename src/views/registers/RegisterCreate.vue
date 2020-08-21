@@ -7,122 +7,112 @@
         <v-icon>mdi-close</v-icon>
       </v-btn>
     </v-card-title>
-    <v-row>
-      <v-col>
-        <v-sheet class="pa-12" color="white">
-          <v-card-title primary-title>
-            <span class="text-subtitle-1">Novo Cadastro</span>
-          </v-card-title>
 
-          <v-card-text>
-            <v-text-field label="Nome Completo" v-model="register.fullname"></v-text-field>
-            <v-text-field label="CPF" v-model="register.cpf"></v-text-field>
-            <v-text-field label="Cargo" v-model="register.office"></v-text-field>
+    <v-card-text>
+      <v-col cols="12" class="border mt-4 background-image">
+        <v-row class="d-flex align-center">
+          <v-col cols="3">
+            <v-img
+              src="@/assets/images/logo_acolhida.png"
+              alt="logo_acolhida"
+              height="80"
+              width="80"
+              class="ml-4"
+            ></v-img>
+          </v-col>
+          <v-col>
+            <div class="text-uppercase text-center text--black mr-2 pb-2">
+              <h1>Operação Acolhida</h1>
+            </div>
+            <v-divider class="mt-2"></v-divider>
+          </v-col>
+        </v-row>
 
-            <v-container grid-list-xs>
-              <div class="d-flex justify-center">
-                <v-image-input
-                  imageFormat="png"
-                  v-model="photo"
-                  value="teste"
-                  :image-quality="0.85"
-                  clearable
-                  clearIcon="mdi-close"
-                />
-                <!-- <v-btn class="align-content-end" color="primary" @click="base64ToFile()">Carregar</v-btn> -->
-                <Badge :imgBase64="photo" :register="register" />
-              </div>
-            </v-container>
+        <v-row>
+          <ProgressBar :value="progress" />
 
-            <v-card-actions class="d-flex justify-end">
-              <v-btn block color="primary" @click="registerCard()">Registrar</v-btn>
-            </v-card-actions>
-          </v-card-text>
-        </v-sheet>
+          <v-col cols="4">
+            <div class="container-photo ml-2">
+              <v-hover v-slot:default="{ hover }" open-delay="200">
+                <a @click.prevent="show=true">
+                  <v-card :elevation="hover ? 16 : 2" tile>
+                    <v-img :src="photo" height="195" width="900"></v-img>
+                  </v-card>
+                </a>
+              </v-hover>
+              <vue-image-crop-upload
+                v-model="show"
+                @crop-success="cropSuccess"
+                langType="pt-br"
+                noCircle
+              />
+            </div>
+          </v-col>
+          <v-col>
+            <div class="container-content-badge">
+              <v-col>
+                <v-text-field label="Nome Completo" v-model="register.fullname" clearable></v-text-field>
+                <v-text-field label="CPF" v-model="register.cpf" clearable></v-text-field>
+                <v-text-field label="Cargo" v-model="register.office" clearable></v-text-field>
+              </v-col>
+            </div>
+          </v-col>
+        </v-row>
       </v-col>
-    </v-row>
+      <v-card-actions class="d-flex justify-end mt-2">
+        <v-btn block color="primary" @click.prevent="onUploadPhoto">Registrar</v-btn>
+      </v-card-actions>
+    </v-card-text>
   </v-card>
 </template>
  
  <script>
-import firebase from "firebase";
+import UploadMixins from "./mixins/UploadMixins";
+import ProgressBar from "./components/ProgressBar";
 
-import VImageInput from "vuetify-image-input/a-la-carte";
-import Badge from "./components/Badge";
+import VueImageCropUpload from "vue-image-crop-upload";
 
 export default {
   data() {
     return {
-      register: {},
-      photo: null,
-      urlImge: "",
+      photo: "",
+      show: false,
     };
   },
   components: {
-    VImageInput,
-    Badge,
+    VueImageCropUpload,
+    ProgressBar,
   },
-  methods: {
-    registerCard() {
-      console.log("registrando new data");
-      firebase.database().ref("registers").push().set(this.register);
-    },
-
-    base64ToFile() {
-      const url = this.photo;
-      fetch(url)
-        .then((res) => res.blob())
-        .then((blob) => {
-          const file = new File([blob], "File name", { type: "image/png" });
-          console.log(file);
-          return (this.urlImge = file);
-        });
-    },
-
-    onUploadPhoto() {
-      const url = this.photo;
-      fetch(url)
-        .then((res) => res.blob())
-        .then((blob) => {
-          const file = new File([blob], "File name", { type: "image/png" });
-
-          let storageRef = firebase.storage().ref();
-          var uploadTask = storageRef
-            .child(`images/${this.register.cpf}`)
-            .put(file);
-
-          uploadTask.on(
-            firebase.storage.TaskEvent.STATE_CHANGED,
-            (snapshot) => {
-              var progress =
-                (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-
-              console.log("Upload is " + progress + "% done");
-            },
-            function (error) {
-              switch (error.code) {
-                case "storage/unauthorized":
-                  break;
-
-                case "storage/canceled":
-                  break;
-
-                case "storage/unknown":
-                  break;
-              }
-            },
-            () => {
-              uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-                this.urlImge = downloadURL;
-                console.log("File available at", downloadURL);
-              });
-            }
-          );
-        });
-    },
-  },
+  mixins: [UploadMixins],
 };
 </script>
  
- <style>
+<style scoped>
+.background-image {
+  background-image: url("../../assets/images/logo_admin_forBackgroundCard.png");
+  background-size: 500px 240px;
+  background-position-x: 880px;
+  background-position-y: 110px;
+}
+
+.text--black {
+  color: black;
+}
+
+.container-photo {
+  height: 100%;
+  width: 100%;
+  padding: 4px;
+  border: 0.2px solid gray;
+}
+
+.container-content-badge {
+  height: 200px;
+  width: 100%;
+  /* border: 1px solid; */
+}
+
+.border {
+  border: 1px solid;
+}
 </style>

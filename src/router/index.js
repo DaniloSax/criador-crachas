@@ -9,6 +9,8 @@ import UsersCreate from '../views/users/UserCreate'
 import Registers from '../views/registers/Registers'
 import RegisterCreate from '../views/registers/RegisterCreate'
 
+import ShowBadge from '../views/registers/ShowBadge'
+
 Vue.use(VueRouter)
 
 const routes = [{
@@ -50,6 +52,15 @@ const routes = [{
         path: '/users/create',
         name: 'usersCreate',
         component: UsersCreate,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: '/:id/badge/show',
+        name: 'showBadge',
+        component: ShowBadge,
+        props: true,
         meta: {
             requiresAuth: true,
         },

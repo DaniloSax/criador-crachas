@@ -9,6 +9,15 @@
         </v-main>
       </v-app>
     </template>
+    <template v-else-if="$route.name == 'showBadge'">
+      <v-app>
+        <v-main class="d-flex align-center">
+          <v-container fluid class="d-flex justify-center">
+            <router-view />
+          </v-container>
+        </v-main>
+      </v-app>
+    </template>
     <template v-else>
       <layout-default>
         <router-view />
@@ -39,3 +48,7 @@ export default {
   }),
 };
 </script>
+
+
+<style>
+</style>

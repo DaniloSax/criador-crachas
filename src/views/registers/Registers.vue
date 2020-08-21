@@ -24,24 +24,27 @@
       }"
         >
           <template v-slot:item.actions="{ item }">
-            <v-btn icon color="primary" @click="editUser(item.key)">
-              <v-icon>mdi-pencil</v-icon>
-            </v-btn>
-            <v-btn icon color="red" @click="deleteUser(item.key)">
-              <v-icon>mdi-delete</v-icon>
-            </v-btn>
+            <span class="d-flex justify-center">
+              <v-btn icon color="primary" @click="editUser(item.key)">
+                <v-icon>mdi-pencil</v-icon>
+              </v-btn>
+              <v-btn icon color="red" @click="deleteUser(item.key, item.cpf)">
+                <v-icon>mdi-delete</v-icon>
+              </v-btn>
+              <PreViewCardDialog :register="item" />
 
-            <PreViewCardDialog />
-
-            <v-btn icon color="cyan lighten-1" @click="print(item.key)">
-              <v-icon>mdi-printer</v-icon>
-            </v-btn>
-
+              <v-btn
+                icon
+                color="cyan lighten-1"
+                target="_blanck"
+                :to="{name:'showBadge', params: {id: item.key}}"
+              >
+                <v-icon>mdi-printer</v-icon>
+              </v-btn>
+            </span>
             <!-- <dialog-delete :id="item.id" @ladingTable="loading = $event"></dialog-delete> -->
           </template>
         </v-data-table>
-
-        <Badge />
       </v-card-text>
     </v-card>
   </div>
@@ -50,7 +53,6 @@
  <script>
 import firebase from "firebase";
 
-import Badge from "./components/Badge";
 import PreViewCardDialog from "./components/dialogs/PreViewCard";
 
 export default {
@@ -72,7 +74,6 @@ export default {
   },
   components: {
     PreViewCardDialog,
-    Badge,
   },
   methods: {
     listAllData() {
@@ -88,6 +89,7 @@ export default {
               fullname: item.val().fullname,
               cpf: item.val().cpf,
               office: item.val().office,
+              urlimage: item.val().urlimage,
             };
             vm.registers.push(register);
           });
@@ -97,8 +99,22 @@ export default {
     editUser(key) {
       console.log("editUser", key);
     },
-    deleteUser(key) {
+    deleteUser(key, cpf) {
       firebase.database().ref(`registers/${key}`).remove();
+      // Create a reference to the file to delete
+      const storageRef = firebase.storage().ref();
+      var desertRef = storageRef.child(`images/${cpf}`);
+
+      desertRef
+        .delete()
+        .then(() => {
+          // File deleted successfully
+          console.log("File deleted successfully");
+        })
+        .catch((error) => {
+          // Uh-oh, an error occurred!
+          console.log(" Uh-oh, an error occurred!", error);
+        });
     },
     details(key) {
       console.log("details", key);
