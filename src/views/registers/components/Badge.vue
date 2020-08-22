@@ -117,8 +117,10 @@ export default {
 
 .background {
   background-image: url("../../../assets/images/simbolo-adm 2.png");
-  background-size: 200px 140px;
-  background-position-x: 120px;
-  background-position-y: 105px;
+  background-position: bottom right;
+  /* background-size: 100px 40px ; */
+  background-size: 200px 132px;
+  /* background-position-x: 120px; */
+  /* background-position-y: 105px; */
 }
 </style>
