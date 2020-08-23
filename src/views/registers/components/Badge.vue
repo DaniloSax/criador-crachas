@@ -58,7 +58,7 @@ export default {
   },
   watch: {
     register(newQuestion) {
-      if (newQuestion) {
+      if (("new Question", newQuestion)) {
         console.log(newQuestion);
         this.registerLocal = newQuestion;
       }
@@ -116,9 +116,11 @@ export default {
   border: 0.2px solid gray;
 }
 
-.image-fundo{
+.image-fundo {
   background-image: url("../../../assets/images/simbolo-adm 2.png");
   background-position: bottom right;
+  -webkit-print-color-adjust: exact;
+
   /* background-size: 100px 40px ; */
   background-size: 150px 132px;
   /* background-position-x: 120px; */
