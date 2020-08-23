@@ -6,6 +6,7 @@ import vuetify from './plugins/vuetify';
 import VueRx from 'vue-rx'
 
 import './plugins/firebase'
+import './plugins/vee-validate'
 
 Vue.use(VueRx)
 

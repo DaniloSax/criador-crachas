@@ -1,14 +1,15 @@
  <template>
-  <v-sheet class="container-badge background">
+  <!-- container-badge -->
+  <div class="elevation-2 image-fundo" style="border: 1px solid; color: black;">
     <v-row class="d-flex align-center">
       <v-col cols="3">
-        <v-img
+        <img
           src="@/assets/images/logo_acolhida.png"
           alt="logo_acolhida"
           height="70"
           width="70"
           class="ml-4"
-        ></v-img>
+        />
       </v-col>
       <v-col>
         <div class="text-uppercase text-center mr-2 pb-2">
@@ -22,7 +23,7 @@
     <v-row class="d-flex justify-space-between align-center">
       <v-col cols="3">
         <div class="container-photo d-flex align-baseline ml-2">
-          <v-img :src="registerLocal.urlimage" height="75" width="85"></v-img>
+          <img :src="registerLocal.urlimage" height="75" width="75" alt="foto do crachá" />
         </div>
       </v-col>
       <v-col>
@@ -35,7 +36,7 @@
         </div>
       </v-col>
     </v-row>
-  </v-sheet>
+  </div>
 </template>
  
  <script>
@@ -115,11 +116,11 @@ export default {
   border: 0.2px solid gray;
 }
 
-.background {
+.image-fundo{
   background-image: url("../../../assets/images/simbolo-adm 2.png");
   background-position: bottom right;
   /* background-size: 100px 40px ; */
-  background-size: 200px 132px;
+  background-size: 150px 132px;
   /* background-position-x: 120px; */
   /* background-position-y: 105px; */
 }

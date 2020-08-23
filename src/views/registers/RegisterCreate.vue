@@ -51,7 +51,14 @@
           <v-col>
             <div class="container-content-badge">
               <v-col>
-                <v-text-field label="Nome Completo" v-model="register.fullname" clearable></v-text-field>
+                <ValidationProvider rules="required" v-slot="{ errors }">
+                  <v-text-field
+                    label="Nome Completo"
+                    v-model="register.fullname"
+                    clearable
+                    :error-messages="errors[0]"
+                  ></v-text-field>
+                </ValidationProvider>
                 <v-text-field label="CPF" v-model="register.cpf" clearable></v-text-field>
                 <v-text-field label="Cargo" v-model="register.office" clearable></v-text-field>
               </v-col>
@@ -68,8 +75,9 @@
  
  <script>
 import UploadMixins from "./mixins/UploadMixins";
-import ProgressBar from "./components/ProgressBar";
+import { ValidationProvider } from "vee-validate";
 
+import ProgressBar from "./components/ProgressBar";
 import VueImageCropUpload from "vue-image-crop-upload";
 
 export default {
@@ -82,6 +90,7 @@ export default {
   components: {
     VueImageCropUpload,
     ProgressBar,
+    ValidationProvider,
   },
   mixins: [UploadMixins],
 };
