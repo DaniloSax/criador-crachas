@@ -3,8 +3,8 @@
     <v-card-title class="teal lighten-3 d-flex justify-lg-space-between">
       <span class="headline">Novo Cadastro</span>
 
-      <v-btn icon color="dark" :to="{name: 'registers'}">
-        <v-icon>mdi-close</v-icon>
+      <v-btn tile color="red"  :to="{name: 'registers'}">
+        <v-icon class="white--text">mdi-close</v-icon>
       </v-btn>
     </v-card-title>
 
@@ -59,15 +59,23 @@
                     :error-messages="errors[0]"
                   ></v-text-field>
                 </ValidationProvider>
-                <v-text-field
-                  label="CPF"
-                  v-mask="'###.###.###-##'"
-                  v-model="register.cpf"
-                  clearable
-                  :error="validateCPF(register.cpf)"
-                ></v-text-field>
-
-                <v-text-field label="Cargo" v-model="register.office" clearable></v-text-field>
+                <ValidationProvider rules="required|cpf" v-slot="{ errors }">
+                  <v-text-field
+                    label="CPF"
+                    v-mask="'###.###.###-##'"
+                    v-model.lazy="register.cpf"
+                    clearable
+                    :error-messages="errors[0]"
+                  ></v-text-field>
+                </ValidationProvider>
+                <ValidationProvider rules="required" v-slot="{ errors }">
+                  <v-text-field
+                    label="Cargo"
+                    v-model="register.office"
+                    clearable
+                    :error-messages="errors[0]"
+                  ></v-text-field>
+                </ValidationProvider>
               </v-col>
             </div>
           </v-col>
@@ -86,13 +94,8 @@
  
  <script>
 import UploadMixins from "./mixins/UploadMixins";
+
 import { ValidationProvider } from "vee-validate";
-import { cpf } from "cpf-cnpj-validator";
-// import { mask } from "vue-the-mask";
-// import TheMask from 'vue-the-mask'
-
-// import { VueMaskFilter } from "v-mask";
-
 import ProgressBar from "./components/ProgressBar";
 import VueImageCropUpload from "vue-image-crop-upload";
 
@@ -109,20 +112,6 @@ export default {
     ValidationProvider,
   },
   mixins: [UploadMixins],
-  methods: {
-    validateCPF(num) {
-      const formatCPF = cpf.format(num);
-
-      console.log(formatCPF);
-
-      const validate = cpf.isValid(num);
-
-      return console.log(validate);
-    },
-  },
-  // directives: {
-  //   mask: VueMaskFilter,
-  // },
 };
 </script>
  
