@@ -33,7 +33,7 @@ export default {
             this.register = register
         },
 
-        onUploadPhoto() {
+        storeAndUpload() {
 
             const url = this.photo;
             fetch(url)

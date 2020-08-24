@@ -17,7 +17,7 @@ export default {
             this.photo = imageDataUrl;
         },
 
-        registerCard() {
+        editCard() {
             console.log('editando registro...')
             firebase.database().ref(`registers/${this.register.key}`).push().set(this.register);
         },
@@ -26,14 +26,14 @@ export default {
             console.log('preparando data')
             let register = {
                 fullname: this.register.fullname,
-                cpf: this.register.cpf,
+                cpf: this.register.cpf.replace(/[^\d]+/g, ''),
                 office: this.register.office,
                 urlimage: urlimage,
             }
             this.register = register
         },
 
-        onUploadPhoto() {
+        updateAndUpload() {
 
             const url = this.photo;
             fetch(url)
@@ -43,7 +43,7 @@ export default {
 
                     let storageRef = firebase.storage().ref();
                     let uploadTask = storageRef
-                        .child(`images/${this.register.cpf}_${this.register.office}`)
+                        .child(`images/${this.register.cpf.replace(/[^\d]+/g, '')}_${this.register.office}`)
                         .put(file);
 
                     uploadTask.on(
@@ -71,7 +71,7 @@ export default {
                             uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
                                 this.prepareData(downloadURL)
                                     // console.log("File available at", this.urlImge);
-                                this.registerCard()
+                                this.editCard()
                             })
                         }
                     );

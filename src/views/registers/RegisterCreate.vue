@@ -83,7 +83,7 @@
 
         <v-row>
           <v-col class="d-flex justify-end">
-            <v-btn color="teal" class="white--text" @click.prevent="onUploadPhoto">Registrar</v-btn>
+            <v-btn color="teal" class="white--text" @click.prevent="storeAndUpload()">Registrar</v-btn>
           </v-col>
         </v-row>
       </v-col>

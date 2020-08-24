@@ -29,7 +29,7 @@
                 <v-icon>mdi-pencil</v-icon>
               </v-btn>
 
-              <v-btn icon color="red" @click="deleteUser(item.key, item.cpf)">
+              <v-btn icon color="red" @click="deleteUser(item)">
                 <v-icon>mdi-delete</v-icon>
               </v-btn>
 
@@ -114,11 +114,11 @@ export default {
         })
         .catch(() => {});
     },
-    deleteUser(key, cpf) {
-      firebase.database().ref(`registers/${key}`).remove();
+    deleteUser(register) {
+      firebase.database().ref(`registers/${register.key}`).remove();
       // Create a reference to the file to delete
       const storageRef = firebase.storage().ref();
-      var desertRef = storageRef.child(`images/${cpf}`);
+      var desertRef = storageRef.child(`images/${register.cpf}_${register.office}`);
 
       desertRef
         .delete()
