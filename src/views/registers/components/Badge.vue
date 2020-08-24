@@ -16,7 +16,7 @@
           <h1>Operação</h1>
           <h1>Acolhida</h1>
         </div>
-        <v-divider></v-divider>
+        <v-divider class="mr-2"></v-divider>
       </v-col>
     </v-row>
 
@@ -119,11 +119,10 @@ export default {
 .image-fundo {
   background-image: url("../../../assets/images/simbolo-adm 2.png");
   background-position: bottom right;
-  -webkit-print-color-adjust: exact;
-
-  /* background-size: 100px 40px ; */
   background-size: 150px 132px;
-  /* background-position-x: 120px; */
+  -webkit-print-color-adjust: exact;
+  /* background-size: 100px 40px ; */
+  /* background-position-x: 260px; */
   /* background-position-y: 105px; */
 }
 </style>

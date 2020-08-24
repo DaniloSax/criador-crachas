@@ -2,7 +2,7 @@
   <div>
     <router-view></router-view>
     <v-card tile>
-      <v-card-title class="blue lighten-3 d-flex justify-center" primary-title>
+      <v-card-title class="teal lighten-3 d-flex justify-center" primary-title>
         <span class="headline white--text">Cadastros</span>
       </v-card-title>
       <v-card-text>
@@ -10,7 +10,7 @@
           <v-col cols="4">
             <v-text-field label="Buscar" prepend-icon="mdi-magnify" v-model="search" clearable></v-text-field>
           </v-col>
-          <v-btn :to="{name:'registersCreate'}" color="success" class="justify-end">Novo</v-btn>
+          <v-btn :to="{name:'registersCreate'}" color="teal" class="white--text">Novo</v-btn>
         </v-row>
 
         <v-data-table

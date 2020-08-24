@@ -1,6 +1,6 @@
  <template>
   <v-card tile>
-    <v-card-title class="blue lighten-5 d-flex justify-lg-space-between">
+    <v-card-title class="teal lighten-3 d-flex justify-lg-space-between">
       <span class="headline">Novo Cadastro</span>
 
       <v-btn icon color="dark" :to="{name: 'registers'}">
@@ -59,16 +59,27 @@
                     :error-messages="errors[0]"
                   ></v-text-field>
                 </ValidationProvider>
-                <v-text-field label="CPF" v-model="register.cpf" clearable></v-text-field>
+                <v-text-field
+                  label="CPF"
+                  v-mask="'###.###.###-##'"
+                  v-model="register.cpf"
+                  clearable
+                  :error="validateCPF(register.cpf)"
+                ></v-text-field>
+
                 <v-text-field label="Cargo" v-model="register.office" clearable></v-text-field>
               </v-col>
             </div>
           </v-col>
         </v-row>
+
+        <v-row>
+          <v-col class="d-flex justify-end">
+            <v-btn color="teal" class="white--text" @click.prevent="onUploadPhoto">Registrar</v-btn>
+          </v-col>
+        </v-row>
       </v-col>
-      <v-card-actions class="d-flex justify-end mt-2">
-        <v-btn block color="primary" @click.prevent="onUploadPhoto">Registrar</v-btn>
-      </v-card-actions>
+      <v-card-actions class="d-flex justify-end mt-2"></v-card-actions>
     </v-card-text>
   </v-card>
 </template>
@@ -76,6 +87,11 @@
  <script>
 import UploadMixins from "./mixins/UploadMixins";
 import { ValidationProvider } from "vee-validate";
+import { cpf } from "cpf-cnpj-validator";
+// import { mask } from "vue-the-mask";
+// import TheMask from 'vue-the-mask'
+
+// import { VueMaskFilter } from "v-mask";
 
 import ProgressBar from "./components/ProgressBar";
 import VueImageCropUpload from "vue-image-crop-upload";
@@ -93,6 +109,20 @@ export default {
     ValidationProvider,
   },
   mixins: [UploadMixins],
+  methods: {
+    validateCPF(num) {
+      const formatCPF = cpf.format(num);
+
+      console.log(formatCPF);
+
+      const validate = cpf.isValid(num);
+
+      return console.log(validate);
+    },
+  },
+  // directives: {
+  //   mask: VueMaskFilter,
+  // },
 };
 </script>
  
