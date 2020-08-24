@@ -18,8 +18,8 @@ export default {
         },
 
         registerCard() {
-            console.log('registrando')
-            firebase.database().ref("registers/").push().set(this.register);
+            console.log('editando registro...')
+            firebase.database().ref(`registers/${this.register.key}`).push().set(this.register);
         },
 
         prepareData(urlimage) {
@@ -43,7 +43,7 @@ export default {
 
                     let storageRef = firebase.storage().ref();
                     let uploadTask = storageRef
-                        .child(`images/${this.register.cpf}`)
+                        .child(`images/${this.register.cpf}_${this.register.office}`)
                         .put(file);
 
                     uploadTask.on(

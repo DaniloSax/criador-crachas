@@ -93,13 +93,16 @@
 </template>
  
  <script>
-import CreateRegisterMixins from "./mixins/CreateRegisterMixins";
+import UploadMixins from "./mixins/UploadMixins";
 
 import { ValidationProvider } from "vee-validate";
 import ProgressBar from "./components/ProgressBar";
 import VueImageCropUpload from "vue-image-crop-upload";
 
 export default {
+  props: {
+    register: { type: Object, required: false },
+  },
   data() {
     return {
       photo: "",
@@ -111,7 +114,7 @@ export default {
     ProgressBar,
     ValidationProvider,
   },
-  mixins: [CreateRegisterMixins],
+  mixins: [UploadMixins],
 };
 </script>
  

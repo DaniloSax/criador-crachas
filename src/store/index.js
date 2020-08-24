@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 // modules
+import Registers from './modules/registers'
 
 Vue.use(Vuex)
 
@@ -21,5 +22,7 @@ export default new Vuex.Store({
     getters: {
         getDrawer: (state) => state.drawer
     },
-    modules: {}
+    modules: {
+        Registers,
+    }
 })

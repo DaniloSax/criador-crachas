@@ -25,7 +25,7 @@
         >
           <template v-slot:item.actions="{ item }">
             <span class="d-flex justify-center">
-              <v-btn icon color="primary" @click="editUser(item.key)">
+              <v-btn icon color="primary" @click="editUser(item)">
                 <v-icon>mdi-pencil</v-icon>
               </v-btn>
 
@@ -60,6 +60,13 @@ import PreViewCardDialog from "./components/dialogs/PreViewCard";
 export default {
   created() {
     this.listAllData();
+    if (this.registers) {
+      this.$store.commit("setRegisters", this.registers);
+    } else {
+      setTimeout(() => {
+        this.$store.commit("setRegisters", this.registers);
+      }, 1000);
+    }
   },
   data() {
     return {
@@ -98,9 +105,14 @@ export default {
         });
     },
 
-    editUser(key) {
-      console.log("editUser", key);
-      this.$router.push({ name: "registersEdit", params: { id: key } });
+    editUser(register) {
+      console.log("editUser", register);
+      this.$router
+        .push({
+          name: "registersEdit",
+          params: { id: register.key, registerProp: register },
+        })
+        .catch(() => {});
     },
     deleteUser(key, cpf) {
       firebase.database().ref(`registers/${key}`).remove();
