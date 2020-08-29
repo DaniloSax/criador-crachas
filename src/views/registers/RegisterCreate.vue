@@ -9,7 +9,7 @@
     </v-card-title>
 
     <v-card-text>
-      <v-col cols="12" class="border mt-4 background-image">
+      <v-col cols="12" class="border mt-4 image-fundo">
         <v-row class="d-flex align-center">
           <v-col cols="3">
             <v-img
@@ -115,13 +115,13 @@ export default {
 };
 </script>
  
-<style scoped>
-.background-image {
+<style>
+/* .background-image {
   background-image: url("../../assets/images/logo_admin_forBackgroundCard.png");
   background-size: 500px 240px;
   background-position-x: 880px;
   background-position-y: 110px;
-}
+} */
 
 .text--black {
   color: black;
