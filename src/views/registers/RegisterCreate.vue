@@ -1,7 +1,7 @@
  <template>
   <v-card tile>
     <v-card-title class="teal lighten-3 d-flex justify-lg-space-between">
-      <span class="headline">Novo Cadastro</span>
+      <span class="headline white--text">Novo Cadastro</span>
 
       <v-btn tile color="red" :to="{name: 'registers'}">
         <v-icon class="white--text">mdi-close</v-icon>

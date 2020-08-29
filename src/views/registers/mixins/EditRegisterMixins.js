@@ -12,30 +12,13 @@ export default {
     },
 
     methods: {
-        cropSuccess(imageDataUrl, field) {
-            console.log(field);
-            this.photo = imageDataUrl;
+        cropSuccess(imageDataUrl) {
+            this.register.urlimage = imageDataUrl;
         },
 
-        editCard() {
-            console.log('editando registro...')
-            firebase.database().ref(`registers/${this.register.key}`).push().set(this.register);
-        },
 
-        prepareData(urlimage) {
-            console.log('preparando data')
-            let register = {
-                fullname: this.register.fullname,
-                cpf: this.register.cpf.replace(/[^\d]+/g, ''),
-                office: this.register.office,
-                urlimage: urlimage,
-            }
-            this.register = register
-        },
-
-        updateAndUpload() {
-
-            const url = this.photo;
+        uploadImage() {
+            const url = this.register.urlimage;
             fetch(url)
                 .then((res) => res.blob())
                 .then((blob) => {
@@ -43,7 +26,7 @@ export default {
 
                     let storageRef = firebase.storage().ref();
                     let uploadTask = storageRef
-                        .child(`images/${this.register.cpf.replace(/[^\d]+/g, '')}_${this.register.office}`)
+                        .child(`images/${this.register.cpf.replace(/[^\d]+/g, '')}_${this.register.fullname}`)
                         .put(file);
 
                     uploadTask.on(
@@ -69,13 +52,25 @@ export default {
                         () => {
 
                             uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-                                this.prepareData(downloadURL)
-                                    // console.log("File available at", this.urlImge);
-                                this.editCard()
+                                this.register.urlimage = downloadURL
                             })
                         }
                     );
                 })
+
+        },
+
+        update() {
+            console.log("upload imagem register");
+            this.uploadImage()
+            console.log("deleting register");
+            firebase
+                .database()
+                .ref("registers/" + this.id)
+                .remove();
+            console.log("update register");
+            firebase.database().ref("registers/").push().set(this.register);
+
         },
     },
 }

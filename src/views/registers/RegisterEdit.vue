@@ -1,9 +1,9 @@
  <template>
   <v-card tile>
     <v-card-title class="teal lighten-3 d-flex justify-lg-space-between">
-      <span class="headline">Novo Cadastro</span>
+      <span class="headline white--text">Editar Cadastro</span>
 
-      <v-btn tile color="red" :to="{name: 'registers'}">
+      <v-btn tile color="red" :to="{name: 'registers'}" @click="registerProp = null">
         <v-icon class="white--text">mdi-close</v-icon>
       </v-btn>
     </v-card-title>
@@ -83,17 +83,18 @@
 
         <v-row>
           <v-col class="d-flex justify-end">
-            <v-btn color="teal" class="white--text" @click.prevent="onUploadPhoto">Salvar</v-btn>
+            <v-btn color="teal" class="white--text" @click.prevent="update">Salvar</v-btn>
           </v-col>
         </v-row>
       </v-col>
       <v-card-actions class="d-flex justify-end mt-2"></v-card-actions>
     </v-card-text>
+    <!-- {{ updateRegister() }} -->
   </v-card>
 </template>
  
  <script>
-import CreateRegisterMixins from "./mixins/CreateRegisterMixins";
+import EditRegisterMixins from "./mixins/EditRegisterMixins";
 
 import { ValidationProvider } from "vee-validate";
 import ProgressBar from "./components/ProgressBar";
@@ -121,11 +122,12 @@ export default {
     ProgressBar,
     ValidationProvider,
   },
-  mixins: [CreateRegisterMixins],
+  mixins: [EditRegisterMixins],
   watch: {
     registerProp(newQuestion) {
       if (newQuestion) {
         this.register = newQuestion;
+        this.photo = null;
       }
     },
   },

@@ -23,6 +23,10 @@
         itemsPerPageAllText: 'Todos',
       }"
         >
+          <template v-slot:item.cpf="{ item }">
+           {{ item.cpf | cpfFormat }}
+          </template>
+
           <template v-slot:item.actions="{ item }">
             <span class="d-flex justify-center">
               <v-btn icon color="primary" @click="editUser(item)">
@@ -118,7 +122,9 @@ export default {
       firebase.database().ref(`registers/${register.key}`).remove();
       // Create a reference to the file to delete
       const storageRef = firebase.storage().ref();
-      var desertRef = storageRef.child(`images/${register.cpf}_${register.office}`);
+      var desertRef = storageRef.child(
+        `images/${register.cpf.replace(/[^\d]+/g, "")}_${register.fullname}`
+      );
 
       desertRef
         .delete()

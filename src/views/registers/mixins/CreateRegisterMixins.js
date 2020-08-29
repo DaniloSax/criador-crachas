@@ -43,7 +43,7 @@ export default {
 
                     let storageRef = firebase.storage().ref();
                     let uploadTask = storageRef
-                        .child(`images/${this.register.cpf.replace(/[^\d]+/g, '')}_${this.register.office}`)
+                        .child(`images/${this.register.cpf.replace(/[^\d]+/g, '')}_${this.register.fullname}`)
                         .put(file);
 
                     uploadTask.on(
