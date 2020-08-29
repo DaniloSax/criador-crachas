@@ -29,7 +29,7 @@
       <v-col>
         <div class="ml-4">
           <div class="d-flex flex-column flex-wrap ml-2">
-            <span>{{ registerLocal.cpf }}</span>
+            <span>{{ registerLocal.cpf | cpfFormat }}</span>
             <span>{{ abbreviateNames(registerLocal.fullname) }}</span>
             <span class="headline">{{ abbreviateOffices(registerLocal.office) }}</span>
           </div>
