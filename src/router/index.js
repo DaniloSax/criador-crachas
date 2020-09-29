@@ -11,6 +11,7 @@ import RegisterCreate from '../views/registers/RegisterCreate'
 import RegisterEdit from '../views/registers/RegisterEdit'
 
 import BadgePrint from '../views/registers/BadgePrint'
+import BadgesPrints from '../views/registers/BadgesPrints'
 
 Vue.use(VueRouter)
 
@@ -68,6 +69,15 @@ const routes = [{
         path: '/:id/badge/print',
         name: 'BadgePrint',
         component: BadgePrint,
+        props: true,
+        meta: {
+            requiresAuth: true,
+        },
+    },
+    {
+        path: '/badges/prints',
+        name: 'BadgesPrints',
+        component: BadgesPrints,
         props: true,
         meta: {
             requiresAuth: true,

@@ -6,26 +6,48 @@
         <span class="headline white--text">Cadastros</span>
       </v-card-title>
       <v-card-text>
-        <v-row class="d-flex align-baseline">
+        <v-card-title>
           <v-col cols="4">
             <v-text-field label="Buscar" prepend-icon="mdi-magnify" v-model="search" clearable></v-text-field>
           </v-col>
-          <v-btn :to="{name:'registersCreate'}" color="teal" class="white--text">Novo</v-btn>
-        </v-row>
+          <v-col>
+            <v-tooltip bottom v-if="selected.length > 0">
+              <template v-slot:activator="{on}">
+                <v-btn
+                  v-on="on"
+                  :to="{name:'BadgesPrints', params: {registers: selected}}"
+                  color="teal"
+                  class="white--text"
+                >
+                  <v-icon>mdi-printer</v-icon>
+                  <span>selecionadas</span>
+                </v-btn>
+              </template>
+              <span>Imprimir Selecionadas</span>
+            </v-tooltip>
+          </v-col>
+
+          <v-col class="d-flex justify-end">
+            <v-btn :to="{name:'registersCreate'}" color="teal" class="white--text">Novo</v-btn>
+          </v-col>
+        </v-card-title>
 
         <v-data-table
           tile
           :headers="headers"
           :items="registers"
           :search="search"
+          item-key="key"
+          v-model="selected"
+          show-select
+          :options.sync="pagination"
           :footer-props="{
         itemsPerPageText: 'Linhas por Página',
         itemsPerPageAllText: 'Todos',
+        pageText: `${pagination.page} de ${numberOfPages}`,
       }"
         >
-          <template v-slot:item.cpf="{ item }">
-           {{ item.cpf | cpfFormat }}
-          </template>
+          <template v-slot:item.cpf="{ item }">{{ item.cpf | cpfFormat }}</template>
 
           <template v-slot:item.actions="{ item }">
             <span class="d-flex justify-center">
@@ -51,6 +73,7 @@
             <!-- <dialog-delete :id="item.id" @ladingTable="loading = $event"></dialog-delete> -->
           </template>
         </v-data-table>
+        {{ selected }}
       </v-card-text>
     </v-card>
   </div>
@@ -75,6 +98,11 @@ export default {
   data() {
     return {
       search: "",
+      selected: [],
+      pagination: {
+        itemsPerPage: 6,
+        page: 1,
+      },
       registers: [],
       headers: [
         { text: "CPF", value: "cpf" },
@@ -87,6 +115,11 @@ export default {
   },
   components: {
     PreViewCardDialog,
+  },
+  computed: {
+    numberOfPages() {
+      return Math.ceil(this.registers.length / this.pagination.itemsPerPage);
+    },
   },
   methods: {
     listAllData() {

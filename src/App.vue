@@ -9,7 +9,7 @@
         </v-main>
       </v-app>
     </template>
-    <template v-else-if="$route.name == 'BadgePrint'">
+    <template v-else-if="$route.name == 'BadgePrint' || $route.name == 'BadgesPrints'">
       <v-app>
         <v-main class="d-flex align-center">
           <v-container fluid class="d-flex justify-center">

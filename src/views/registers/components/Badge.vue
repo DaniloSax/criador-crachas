@@ -69,7 +69,6 @@ export default {
       const nome = str.replace(/\s+/gi, " ").trim();
 
       let array_names = nome.split(" ");
-      console.log(array_names);
       if (array_names.length > 3) {
         return array_names
           .map((work, i) => {
@@ -86,7 +85,6 @@ export default {
       const nome = str.replace(/\s+/gi, " ").trim();
 
       let array_names = nome.split(" ");
-      console.log(array_names);
       if (array_names.length > 3) {
         return array_names
           .map((work, i) => {
