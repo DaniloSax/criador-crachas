@@ -12,7 +12,7 @@ O sistema é simples, como o próprio nome já diz, é um criador de    crachás
 
 ## Conclusão
 
-Ainda não havia trabalhado tão profundamente com firebase. Aqui, consegui implementar o CRUD dos crachás e storage das fotos, e ainda dei uma brincada com Electron ![\o/](./src/assets/images/feliz_demais.png).
+Ainda não havia trabalhado tão profundamente com firebase. Aqui, consegui implementar o CRUD dos crachás e storage das fotos, e ainda dei uma brincada com Electron.
 Infelizmente este sistema não foi a produção. Por razões políticas, acabou não havendo tempo suficiente para implantação.
 Mas, ZERO arrependimentos! o aprendizado que adquiri, serviu para outro projeto e servirá para outros projetos, isso não tem preço. \o/
 
